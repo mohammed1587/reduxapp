@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
-import {addBook} from "../redux/actions/actionAddBooks";
+import {addBook, deleteAllBook, deleteBook} from "../redux/actions/actionAddBooks";
 
-const AddBook = ({libraryData,addBook}:any) => {
+const AddBook = ({libraryData,addBook,deleteBook,deleteAllBook}:any) => {
    console.log(libraryData)
     const initialState = {
         title : '',
@@ -14,6 +14,26 @@ const AddBook = ({libraryData,addBook}:any) => {
         addBook(data)
         setData(initialState)
     }
+    const displayData = libraryData.length>0 ?
+        libraryData.map((data:any)=>{
+            return (
+                <li key={data.id} className="list-group-item list-group-item-light d-flex justify-content-between">
+                    <span><strong>Titre: </strong>{data.title}</span>
+                    <span><strong>Autheur: </strong>{data.author}</span>
+                    <span className="btn btn-danger"
+                    onClick={()=>{deleteBook(data.id)}}
+                    >x</span>
+                </li>
+            )
+        })
+        : <p className="text-center">Aucun data à afficher</p>
+
+    const displayDeleteAllButton = libraryData.length > 0 &&
+        <div className="d-flex justify-content-center">
+            <button className="btn-danger mt-4 mb-5"
+            onClick={()=>deleteAllBook()}
+            >Effacer tous les livre </button>
+        </div>
     return (
         <main>
             <div className="jumbotron jumbotron-fluid ">
@@ -45,13 +65,9 @@ const AddBook = ({libraryData,addBook}:any) => {
                 <div className="row">
                     <div className="col-md-12">
                         <ul className="list-group">
-                            <li className="list-group-item list-group-item-light d-flex justify-content-between">
-1233
-                            </li>
+                            {displayData}
                         </ul>
-                        <div className="d-flex justify-content-center">
-                        <button className="btn-danger mt-4 mb-5">Effacer tous les livre </button>
-                    </div>
+                        {displayDeleteAllButton}
                     </div>
 
                 </div>
@@ -68,7 +84,10 @@ const addStateToProps = (state:any) =>{
 
 const  addDispatchToProps = (dispatch:any) => {
     return{
-        addBook:(param:any) => dispatch(addBook(param))
+        addBook:(param:any) => dispatch(addBook(param)),
+        deleteBook:(id:any) => dispatch(deleteBook(id)),
+        deleteAllBook:() => dispatch(deleteAllBook())
+
     }
 }
 export default connect(addStateToProps,addDispatchToProps)(AddBook);
