@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchBooks} from "../redux/slices/thunks";
-import {API_STATUS_FAILED, API_STATUS_LOADING} from "../redux/reducers/constants";
+import {fetchBooks} from "../redux/thunks/thunksFetchBooks";
+import {API_STATUS_FAILED, API_STATUS_LOADING} from "../redux/constants";
 
 const Search = () => {
     const {list, status, error} = useSelector((state: any) => state.books);
@@ -29,19 +29,35 @@ const Search = () => {
             ) : (status === API_STATUS_FAILED) ? <p>{error}</p> :
 
                     list.map((book: any) => {
-                        return (
-                            <div className="card mb-2" key={book.id}>
-                                <div className="card-header">
-                                    <h5 className="mb-0">
-                                        <button className="btn btn-link collapsed"
-                                                aria-expanded="false" data-bs-toggle="collapse"
-                                                data-bs-target={`${book.id}`}
+                         return (
+                            <div className="card mb-2 accordion-item" key={book.id}>
+                                <div className="card-header accordion-header" id={book.volumeInfo.title}>
+                                    <h5 className="mb-0 " >
+                                        <button className="accordion-button" type="button" data-bs-toggle="collapse"
+                                                 aria-expanded="true"
+                                                aria-controls={book.id.replace(/[0-9]/g, '')}
+                                                 data-bs-target={`#${book.id.replace(/[0-9]/g, '')}`}
                                         >{book.volumeInfo.title}</button>
                                     </h5>
                                 </div>
 
-                                <div className="collapse">
-                                    <div className="card-body"></div>
+                                <div  className="accordion-collapse collapse"
+                                     aria-labelledby={book.volumeInfo.title} data-bs-parent="#accordion"
+                                     key={book.id} id={book.id.replace(/[0-9]/g, '')}>
+                                    <div className="card-body accordion-body">
+                                        {
+                                            book.volumeInfo.hasOwnProperty('imageLinks') &&
+                                            <img style={{width:"auto"}} src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title}/>
+                                        }
+                                        <br/>
+                                        <h4 className="card-title">Titre: {book.volumeInfo.title}</h4>
+                                        <h5 className="card-title">Auteur: {book.volumeInfo.authors}</h5>
+                                        <p className="card-text">Description: {book.volumeInfo.description}</p>
+                                        <a className="btn btn-outline-secondary" target="_blank" rel="noopener noreferrer"
+                                           href={book.volumeInfo.previewLink}
+                                        >Plus d'info</a>
+
+                                    </div>
                                 </div>
                             </div>
                         )
@@ -73,7 +89,7 @@ const Search = () => {
             </div>
 
             <div className="container" style={{minHeight: '200px'}}>
-                <div className="accordion-body">
+                    <div className="accordion" id="accordion">
                     {aa()}
 
                 </div>

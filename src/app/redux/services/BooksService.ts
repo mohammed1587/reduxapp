@@ -1,10 +1,9 @@
 import axios from "axios";
-import {GOOGLE_KEY, GOOGLE_URL} from "../reducers/constants";
+import {GOOGLE_KEY, GOOGLE_URL} from "../constants";
 
 const bookApiClient = axios.create({
     baseURL: GOOGLE_URL,
-    //timeout: 1000,
-});
+ });
 
 export default {
     book: {

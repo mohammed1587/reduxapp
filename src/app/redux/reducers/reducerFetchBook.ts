@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {fetchBooks} from "./thunks";
-import {API_STATUS_FAILED, API_STATUS_LOADING, API_STATUS_SUCCESS} from "../reducers/constants";
+import {fetchBooks} from "../thunks/thunksFetchBooks";
+import {API_STATUS_FAILED, API_STATUS_LOADING, API_STATUS_SUCCESS} from "../constants";
 
 
 
-const bookSlice = createSlice({
+const reducerFetchBook = createSlice({
     name: 'books',
     initialState:{
         list: [],
@@ -30,4 +30,4 @@ const bookSlice = createSlice({
     }
 })
 
-export default bookSlice.reducer;
+export default reducerFetchBook.reducer;

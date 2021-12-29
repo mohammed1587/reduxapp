@@ -1,4 +1,4 @@
-import {ADD_BOOKS, DELETE_ALL_BOOKS, DELETE_BOOKS} from "../reducers/constants";
+import {ADD_BOOKS, DELETE_ALL_BOOKS, DELETE_BOOKS} from "../constants";
 
 export const addBook = (data:any) => {
     return {

@@ -1,4 +1,4 @@
-import {ADD_BOOKS, DELETE_ALL_BOOKS, DELETE_BOOKS} from "./constants";
+import {ADD_BOOKS, DELETE_ALL_BOOKS, DELETE_BOOKS} from "../constants";
 import {v4 as uuidv4} from 'uuid';
 import {deleteAllBook} from "../actions/actionAddBooks";
 

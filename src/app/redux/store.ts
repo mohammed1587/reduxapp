@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import reducerAddBooks from "./reducerAddBooks";
+import reducerAddBooks from "./reducers/reducerAddBooks";
 import thunk from "redux-thunk";
- import bookReducer from "../slices/bookSlice";
+ import bookReducer from "./reducers/reducerFetchBook";
 
 const rootReducer = combineReducers({
     library:reducerAddBooks,
