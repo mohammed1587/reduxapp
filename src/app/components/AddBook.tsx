@@ -3,8 +3,7 @@ import {connect} from "react-redux";
 import {addBook, deleteAllBook, deleteBook} from "../redux/actions/actionAddBooks";
 
 const AddBook = ({libraryData,addBook,deleteBook,deleteAllBook}:any) => {
-   console.log(libraryData)
-    const initialState = {
+     const initialState = {
         title : '',
         author:''
     }

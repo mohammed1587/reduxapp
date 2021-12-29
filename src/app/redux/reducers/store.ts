@@ -1,10 +1,13 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import reducerAddBooks from "./reducerAddBooks";
+import thunk from "redux-thunk";
+ import bookReducer from "../slices/bookSlice";
 
 const rootReducer = combineReducers({
-    library:reducerAddBooks
+    library:reducerAddBooks,
+    books:bookReducer
 })
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer,applyMiddleware(thunk))
 
 export default store
